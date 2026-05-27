@@ -10,15 +10,16 @@ TOKENS = ['<PAD>', '+', '*', '//', 'const_0', 'const_1'] + \
 TOKEN_TO_ID = {token: i for i, token in enumerate(TOKENS)} 
 
 class ProgramDataset(Dataset):
-    def __init__(self, csv_file):
+    def init(self, csv_file):
         self.df = pd.read_csv(csv_file)
         self.df = self.df.dropna(subset=['Label_Counterexample'])
-        self.df = self.df[self.df['Label_Counterexample'] != 'None'].reset_index(drop=True)
+        self.df = self.df[self.df['Label_Counterexample'] != 'None'].reset_index(drop=True) 
         
-    def __len__(self):
+    def length(self):
         return len(self.df)
 
-    def __getitem__(self, idx):
+    def getitem(self, idx):
+        
         row = self.df.iloc[idx]
         
         code_sequence = ast.literal_eval(row['Code'])
@@ -29,13 +30,15 @@ class ProgramDataset(Dataset):
             encoded_line = [TOKEN_TO_ID[token] for token in line]
             encoded_code.append(encoded_line)
 
+
         X_tensor = torch.tensor(encoded_code, dtype=torch.long)
-        
         y_tensor = torch.tensor(label_tuple, dtype=torch.float32)
         
         return X_tensor, y_tensor
 
 if __name__ == "__main__":
+    
+    #test
 
     print("Load data...")
     dataset = ProgramDataset('straight_line_programs.csv')

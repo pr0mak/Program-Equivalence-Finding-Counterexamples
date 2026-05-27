@@ -5,13 +5,13 @@ import pandas as pd
 OPERATORS = ['+', '*', '//']
 
 
-def generate_random_program(num_inputs=10, num_lines=10):
+def generate_random_program(num_inputs, num_lines):
     
     available_vars = [f"x{i}" for i in range(num_inputs)]
     available_vars.extend(["const_0", "const_1"])
     
     code = []
-    
+
     for i in range(num_lines):
         op = random.choice(OPERATORS)
         op1 = random.choice(available_vars)
@@ -70,8 +70,8 @@ if __name__ == "__main__":
     print(f"Creation of: {NUM_PROGRAMS} programs...")
     
     for i in range(NUM_PROGRAMS):
-        prog = generate_random_program(num_inputs=10, num_lines=10)
-        counter_ex, steps = find_counterexample(prog, num_inputs=10)
+        prog = generate_random_program(10, 10)
+        counter_ex, steps = find_counterexample(prog, 10)
         
         dataset.append({
             "Program_ID": i,
