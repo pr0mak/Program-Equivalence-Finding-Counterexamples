@@ -5,7 +5,7 @@ import pandas as pd
 OPERATORS = ['+', '*', '//']
 
 
-def generate_random_program(num_inputs=10, num_lines=8):
+def generate_random_program(num_inputs=10, num_lines=10):
     
     available_vars = [f"x{i}" for i in range(num_inputs)]
     available_vars.extend(["const_0", "const_1"])
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print(f"Creation of: {NUM_PROGRAMS} programs...")
     
     for i in range(NUM_PROGRAMS):
-        prog = generate_random_program(num_inputs=10, num_lines=8)
+        prog = generate_random_program(num_inputs=10, num_lines=10)
         counter_ex, steps = find_counterexample(prog, num_inputs=10)
         
         dataset.append({
